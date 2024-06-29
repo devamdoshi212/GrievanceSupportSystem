@@ -53,11 +53,11 @@ const GrievanceDetail = () => {
     }
   };
 
-    const handleResolve = async () => {
+    const handleReject = async () => {
       try {
         setLoading(true);
         const response = await fetchPost(
-          `${role}/grievanceResolve`,
+          `${role}/grievanceRejected`,
           localStorage.getItem("token"),
           JSON.stringify({
             id: id,
@@ -65,7 +65,7 @@ const GrievanceDetail = () => {
         );
         if (response.success) {
           setLoading(false);
-          setGrievance({ ...grievance, status: "resolved" });
+          setGrievance({ ...grievance, status: "rejected" });
         } else {
           console.error("Failed to update grievance status:", result.message);
         }
@@ -127,9 +127,9 @@ const GrievanceDetail = () => {
         )}
 
         {grievance.status === "pending" && (
-          <button className="w-full mt-5 bg-blue-500 text-white py-2 px-4 rounded-lg transition-transform transform hover:scale-105 hover:bg-blue-600"
-          onClick={()=> handleResolve()}>
-            Resolve
+          <button className="w-full mt-5 bg-red-700 text-white py-2 px-4 rounded-lg transition-transform transform hover:scale-105 hover:bg-blue-600"
+          onClick={()=> handleReject()}>
+            Reject
           </button>
         )}
       </Card>

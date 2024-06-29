@@ -39,7 +39,24 @@ function Home() {
           name: "Logout",
         },
       ],
-      "EMPLOYEE": [
+      HR: [
+        {
+          to: "/hr",
+          iconClass: PrimeIcons.HOME,
+          name: "Dashboard",
+        },
+        {
+          to: "/hr/allgrievance",
+          iconClass: PrimeIcons.USER,
+          name: "View Grievance",
+        },
+        {
+          to: "/",
+          iconClass: PrimeIcons.SIGN_OUT,
+          name: "Logout",
+        },
+      ],
+      EMPLOYEE: [
         {
           to: "/",
           iconClass: PrimeIcons.HOME,
@@ -51,40 +68,9 @@ function Home() {
           name: "Raise Grievances",
         },
         {
-          to: "/",
-          iconClass: PrimeIcons.SIGN_OUT,
-          name: "Logout",
-        },
-      ],
-      "DEPARTMENT-HEAD": [
-        {
-          to: "/department-head",
+          to: "/employee/allgrievance",
           iconClass: PrimeIcons.HOME,
-          name: "Dashboard",
-        },
-        {
-          to: "/",
-          iconClass: PrimeIcons.SIGN_OUT,
-          name: "Logout",
-        },
-      ],
-      TEACHER: [
-        {
-          to: "/teacher",
-          iconClass: PrimeIcons.HOME,
-          name: "Dashboard",
-        },
-        {
-          to: "/",
-          iconClass: PrimeIcons.SIGN_OUT,
-          name: "Logout",
-        },
-      ],
-      STUDENT: [
-        {
-          to: "/student",
-          iconClass: PrimeIcons.HOME,
-          name: "Dashboard",
+          name: "View Grievances",
         },
         {
           to: "/",
@@ -138,7 +124,9 @@ function Home() {
               ))}
           </div>
           <div
-            className={"overflow-y-auto w-full h-full p-2 pl-48 md:p-7 pb-20 md:pb-5"}
+            className={
+              "overflow-y-auto w-full h-full p-2 pl-48 md:p-7 pb-20 md:pb-5"
+            }
           >
             <Outlet />
           </div>

@@ -36,7 +36,7 @@ function Header({ toggleSidebar, width }) {
         </button>
       ) : (
         <div className="text-3xl text-black font-bold md:mx-5 cursor-pointer">
-          Oddo Hackathon
+          Grievance System
         </div>
       )}
       <div className="absolute right-5 flex items-center">

@@ -6,7 +6,7 @@ import { Accordion, AccordionTab } from "primereact/accordion";
 import { Dialog } from "primereact/dialog";
 import { InputTextarea } from "primereact/inputtextarea";
 import { fetchPost } from "../../apis/fetch";
-import Loading from "../../components/Loading";
+import Loading from '../../components/Loading'
 
 const GrievanceDetail = () => {
   const { id } = useParams();
@@ -14,12 +14,14 @@ const GrievanceDetail = () => {
   const navigate = useNavigate();
   const [chatVisible, setChatVisible] = useState(false);
   const [message, setMessage] = useState("");
-  const [grievance, setGrievance] = useState({});
+  const [grievance,setGrievance] = useState({});
   const [messages, setMessages] = useState([
     { sender: "HR", content: "We have received your grievance." },
     { sender: "Employee", content: "Thank you for the update." },
   ]);
   const [loading, setLoading] = useState(true);
+
+
 
   useEffect(() => {
     const fetchHRData = async () => {
@@ -28,13 +30,13 @@ const GrievanceDetail = () => {
         const response = await fetchPost(
           `${role}/getGrievanceById`,
           localStorage.getItem("token"),
-          JSON.stringify({
-            grievanceId: id,
-          })
+            JSON.stringify({
+                grievanceId: id
+            })
         );
         if (response.success) {
           setLoading(false);
-          setGrievance(response.data.grievance[0]);
+            setGrievance(response.data.grievance[0]);
         } else {
           console.error("Failed to fetch HR data:", result.message);
         }
@@ -53,30 +55,10 @@ const GrievanceDetail = () => {
     }
   };
 
-    const handleResolve = async () => {
-      try {
-        setLoading(true);
-        const response = await fetchPost(
-          `${role}/grievanceResolve`,
-          localStorage.getItem("token"),
-          JSON.stringify({
-            id: id,
-          })
-        );
-        if (response.success) {
-          setLoading(false);
-          setGrievance({ ...grievance, status: "resolved" });
-        } else {
-          console.error("Failed to update grievance status:", result.message);
-        }
-      } catch (error) {
-        console.error("Error updating grievance status:", error.message);
-      }
-    };
 
-  if (loading) {
-    return <Loading />;
-  }
+if(loading){
+  return <Loading />
+}
 
   return (
     <div className="w-full h-full px-40 md:px-80">
@@ -95,6 +77,8 @@ const GrievanceDetail = () => {
         />
       </div>
       <Card>
+
+        <h1 className="text-xl font-bold mb-2">{grievance.userId.fullname}</h1>
         <h2 className="text-xl font-bold mb-2">{grievance.type}</h2>
         <div className="mb-4">
           <strong>Issue Date:</strong>{" "}
@@ -106,12 +90,6 @@ const GrievanceDetail = () => {
         <div className="mb-4">
           <strong>Status:</strong> {grievance.status}
         </div>
-        {grievance.status === "resolved" && (
-          <div className="mb-4">
-            <strong>Resolved Date:</strong>{" "}
-            {new Date(grievance.updatedAt).toLocaleDateString()}
-          </div>
-        )}
         {grievance.attachments && grievance.attachments.length > 0 && (
           <Accordion>
             {grievance.attachments.map((attachment, index) => (
@@ -124,13 +102,6 @@ const GrievanceDetail = () => {
               </AccordionTab>
             ))}
           </Accordion>
-        )}
-
-        {grievance.status === "pending" && (
-          <button className="w-full mt-5 bg-blue-500 text-white py-2 px-4 rounded-lg transition-transform transform hover:scale-105 hover:bg-blue-600"
-          onClick={()=> handleResolve()}>
-            Resolve
-          </button>
         )}
       </Card>
       <Dialog

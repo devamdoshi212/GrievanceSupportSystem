@@ -19,6 +19,7 @@ function Dashboard() {
       role + "/dashboard",
       localStorage.getItem("token")
     );
+    console.log(result);
     if (result.success) {
       let data = {
         ADMIN: [
@@ -46,30 +47,53 @@ function Dashboard() {
         ],
         HR: [
           {
-            label: "Departments",
-            count: result.data.departmentCount,
+            label: "Resolved Grievance",
+            count: result.data.resolvedCount,
             iconClass: (
-              <i
-                className={PrimeIcons.BUILDING}
-                style={{ fontSize: "25px" }}
-              ></i>
+              <i className={PrimeIcons.BUILDING} style={{ fontSize: "25px" }} />
+            ),
+          },
+          {
+            label: "Pending Grievance",
+            count: result.data.pendingCount,
+            iconClass: (
+              <i className={PrimeIcons.BUILDING} style={{ fontSize: "25px" }} />
+            ),
+          },
+          {
+            label: "Rejected Grievance",
+            count: result.data.rejectedCount,
+            iconClass: (
+              <i className={PrimeIcons.BUILDING} style={{ fontSize: "25px" }} />
             ),
           },
         ],
         EMPLOYEE: [
           {
-            label: "Students",
-            count: result.data.students,
+            label: "Resolved Grievance",
+            count: result.data.resolvedCount,
             iconClass: (
-              <i
-                className={PrimeIcons.USER_GRADUATE}
-                style={{ fontSize: "25px" }}
-              ></i>
+              <i className={PrimeIcons.BUILDING} style={{ fontSize: "25px" }} />
+            ),
+          },
+          {
+            label: "Pending Grievance",
+            count: result.data.pendingCount,
+            iconClass: (
+              <i className={PrimeIcons.BUILDING} style={{ fontSize: "25px" }} />
+            ),
+          },
+          {
+            label: "Rejected Grievance",
+            count: result.data.rejectedCount,
+            iconClass: (
+              <i className={PrimeIcons.BUILDING} style={{ fontSize: "25px" }} />
             ),
           },
         ],
       };
       setCount(data);
+      console.log(count);
     } else {
       navigate("/");
     }
@@ -79,28 +103,14 @@ function Dashboard() {
     getData();
   }, []);
 
+  if (loading) {
+    <Loading />;
+  }
   return (
     <>
       <div className="text-4xl px-10 font-bold py-1">Dashboard</div>
 
       <div className="flex overflow-hidden flex-wrap justify-evenly">
-        <CountCard
-          key={1}
-          label={"Grievance"}
-          iconClass={PrimeIcons.BUILDING}
-          count={10}
-        />
-        <CountCard
-          key={1}
-          label={"Grievance"}
-          iconClass={PrimeIcons.BUILDING}
-          count={10}
-              />
-      </div>
-              <ChartComponent/>
-      
-          
-          {/* <div className="flex overflow-hidden flex-wrap justify-evenly">
         {count &&
           count[localStorage.getItem("role")].map((ele, ind) => {
             return (
@@ -112,7 +122,8 @@ function Dashboard() {
               />
             );
           })}
-      </div> */}
+      </div>
+      {!loading && <ChartComponent data={count} />}
     </>
   );
 }

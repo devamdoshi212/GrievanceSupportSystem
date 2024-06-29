@@ -10,6 +10,12 @@ import AddPerson from "./pages/Admin/AddPerson";
 import AddGrievance from "./pages/Admin/AddGrievance";
 import ViewGrievance from "./pages/Admin/ViewGrievance";
 import RaiseGrievence from "./pages/Employee/RaiseGrievence";
+import ViewAllGrievance from "./pages/Admin/ViewAllGrievance";
+import AdminGrievence from "./pages/Admin/Grievance";
+import EmployeeViewAllGrievance from "./pages/Employee/ViewAllGrievance";
+import EmployeeGrievance from "./pages/Employee/Grievance";
+import HRViewAllGrievance from './pages/HR/ViewAllGrievance'
+import HRGrievance from './pages/HR/Grievance';
 
 function Main() {
   const routes = createBrowserRouter([
@@ -17,11 +23,6 @@ function Main() {
       path: "/",
       element: <Login />,
       loader: loginLoader,
-    },
-    {
-      path: "/register",
-      element: <Register />,
-      // loader: loginLoader,
     },
     {
       path: "/admin",
@@ -33,6 +34,8 @@ function Main() {
         { path: "hr", element: <AddPerson /> },
         { path: "grievance", element: <AddGrievance /> },
         { path: "allgrievance", element: <ViewGrievance /> },
+        { path: "allgrievance/:hrId", element: <ViewAllGrievance /> },
+        { path: "allgrievance/view/:id", element: <AdminGrievence /> },
       ],
     },
     {
@@ -43,6 +46,19 @@ function Main() {
       children: [
         { path: "", element: <Dashboard /> },
         { path: "grievance", element: <RaiseGrievence /> },
+        { path: "allgrievance", element: <EmployeeViewAllGrievance /> },
+        { path: "allgrievance/view/:id", element: <EmployeeGrievance /> },
+      ],
+    },
+    {
+      path: "/hr",
+      element: <Home />,
+      loader: verifyLoader,
+      errorElement: <ErrorElement />,
+      children: [
+        { path: "", element: <Dashboard /> },
+        { path: "allgrievance", element: <HRViewAllGrievance /> },
+        { path: "allgrievance/view/:id", element: <HRGrievance /> },
       ],
     },
     {
