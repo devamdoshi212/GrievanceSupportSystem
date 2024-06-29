@@ -18,6 +18,13 @@ const grievanceSchema = new mongoose.Schema(
       },
     ],
     resolvedDate: { type: Date },
+    discussion: [
+      {
+        label: String,
+        message: String,
+        createdAt: { type: Date, default: Date.now() },
+      },
+    ],
     is_active: { type: Number, default: 1 },
   },
   {

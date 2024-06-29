@@ -13,6 +13,7 @@ const { multerConfig } = require("../utils/upload-files-utils");
 const {
   dashboard,
   grievanceResolve,
+  discussion,
 } = require("../controllers/employee-controller");
 
 const router = express.Router();
@@ -30,4 +31,5 @@ router.post("/getGrievanceById", asyncRouteHandler(getGrievanceById));
 router.get("/dashboard", asyncRouteHandler(dashboard));
 
 router.post("/grievanceResolve", asyncRouteHandler(grievanceResolve));
+router.post("/discussion", asyncRouteHandler(discussion));
 module.exports = router;

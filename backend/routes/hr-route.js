@@ -12,6 +12,7 @@ const {
   dashboard,
   grievanceRejected,
   hrAllGrievance,
+  discussion,
 } = require("../controllers/hr-controller");
 
 const router = express.Router();
@@ -23,5 +24,6 @@ router.post("/getGrievanceById", asyncRouteHandler(getGrievanceById));
 router.get("/dashboard", asyncRouteHandler(dashboard));
 router.post("/grievanceRejected", asyncRouteHandler(grievanceRejected));
 router.get("/hrAllGrievance", asyncRouteHandler(hrAllGrievance));
+router.post("/discussion", asyncRouteHandler(discussion));
 
 module.exports = router;

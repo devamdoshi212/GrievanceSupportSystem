@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
@@ -15,10 +15,7 @@ const GrievanceDetail = () => {
   const [chatVisible, setChatVisible] = useState(false);
   const [message, setMessage] = useState("");
   const [grievance, setGrievance] = useState({});
-  const [messages, setMessages] = useState([
-    { sender: "HR", content: "We have received your grievance." },
-    { sender: "Employee", content: "Thank you for the update." },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -34,9 +31,10 @@ const GrievanceDetail = () => {
         );
         if (response.success) {
           setLoading(false);
+          setMessages(response.data.grievance[0].discussion);
           setGrievance(response.data.grievance[0]);
         } else {
-          console.error("Failed to fetch HR data:", result.message);
+          console.error("Failed to fetch HR data:", response.message);
         }
       } catch (error) {
         console.error("Error fetching HR data:", error.message);
@@ -46,33 +44,46 @@ const GrievanceDetail = () => {
     fetchHRData();
   }, [role]);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (message.trim() !== "") {
-      setMessages([...messages, { sender: "You", content: message }]);
+      setMessages([
+        ...messages,
+        {
+          label: localStorage.getItem("role").toUpperCase(),
+          message: message,
+        },
+      ]);
+      await fetchPost(
+        `${role}/discussion`,
+        localStorage.getItem("token"),
+        JSON.stringify({
+          grievanceId: id,
+          message: message,
+        })
+      );
       setMessage("");
     }
   };
-
-    const handleReject = async () => {
-      try {
-        setLoading(true);
-        const response = await fetchPost(
-          `${role}/grievanceRejected`,
-          localStorage.getItem("token"),
-          JSON.stringify({
-            id: id,
-          })
-        );
-        if (response.success) {
-          setLoading(false);
-          setGrievance({ ...grievance, status: "rejected" });
-        } else {
-          console.error("Failed to update grievance status:", result.message);
-        }
-      } catch (error) {
-        console.error("Error updating grievance status:", error.message);
+  const handleReject = async () => {
+    try {
+      setLoading(true);
+      const response = await fetchPost(
+        `${role}/grievanceRejected`,
+        localStorage.getItem("token"),
+        JSON.stringify({
+          id: id,
+        })
+      );
+      if (response.success) {
+        setLoading(false);
+        setGrievance({ ...grievance, status: "rejected" });
+      } else {
+        console.error("Failed to update grievance status:", response.message);
       }
-    };
+    } catch (error) {
+      console.error("Error updating grievance status:", error.message);
+    }
+  };
 
   if (loading) {
     return <Loading />;
@@ -127,12 +138,15 @@ const GrievanceDetail = () => {
         )}
 
         {grievance.status === "pending" && (
-          <button className="w-full mt-5 bg-red-700 text-white py-2 px-4 rounded-lg transition-transform transform hover:scale-105 hover:bg-blue-600"
-          onClick={()=> handleReject()}>
+          <button
+            className="w-full mt-5 bg-red-700 text-white py-2 px-4 rounded-lg transition-transform transform hover:scale-105 hover:bg-blue-600"
+            onClick={() => handleReject()}
+          >
             Reject
           </button>
         )}
       </Card>
+
       <Dialog
         header="Discussion"
         visible={chatVisible}
@@ -145,18 +159,20 @@ const GrievanceDetail = () => {
               <div
                 key={index}
                 className={`flex mb-2 ${
-                  msg.sender === "You" ? "justify-end" : "justify-start"
+                  msg.label === localStorage.getItem("role").toUpperCase()
+                    ? "justify-end"
+                    : "justify-start"
                 }`}
               >
                 <div
                   className={`p-2 rounded-lg ${
-                    msg.sender === "You"
+                    msg.label === localStorage.getItem("role").toUpperCase()
                       ? "bg-blue-500 text-white"
                       : "bg-gray-200 text-black"
                   }`}
                 >
-                  <strong>{msg.sender}: </strong>
-                  {msg.content}
+                  <strong>{msg.label}: </strong>
+                  {msg.message}
                 </div>
               </div>
             ))}

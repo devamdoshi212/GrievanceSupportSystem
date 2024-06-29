@@ -33,7 +33,19 @@ async function grievanceResolve(req, res, next) {
   ok200(res);
 }
 
+async function discussion(req, res, next) {
+  const { grievanceId, message } = req.body;
+  if (!grievanceId) {
+    throw new CustomError("Invalid Request", 400);
+  }
+  let grievance = await grievanceModel.findByIdAndUpdate(grievanceId, {
+    $push: { discussion: { label: res.locals.userData.role, message } },
+  });
+  ok200(res);
+}
+
 module.exports = {
   dashboard,
   grievanceResolve,
+  discussion,
 };
