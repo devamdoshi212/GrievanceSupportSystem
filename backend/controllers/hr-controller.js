@@ -30,9 +30,15 @@ async function grievanceRejected(req, res, next) {
   if (!id) {
     throw new CustomError("Invalid Request", 400);
   }
-  const updatedGrievance = await grievanceModel.findByIdAndUpdate(id, {
-    status: "rejected",
-  });
+  const updatedGrievance = await grievanceModel.findOne({ _id: id });
+  updatedGrievance.status = "rejected";
+  await updatedGrievance.save();
+  await updatedGrievance.populate("userId");
+  sendMail(
+    updatedGrievance.userId.email,
+    "Issue Rejected",
+    `Issue ${updatedGrievance.description} has been rejected`
+  );
   ok200(res);
 }
 async function hrAllGrievance(req, res, next) {

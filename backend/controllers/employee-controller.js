@@ -1,4 +1,5 @@
 const grievanceModel = require("../models/grievance-models");
+const { sendMail } = require("../utils/mail-utils");
 const { ok200 } = require("../utils/response-utils");
 const { CustomError } = require("../utils/router-utils");
 
@@ -27,9 +28,16 @@ async function grievanceResolve(req, res, next) {
   if (!id) {
     throw new CustomError("Invalid Request", 400);
   }
-  const updatedGrievance = await grievanceModel.findByIdAndUpdate(id, {
-    status: "resolved",
-  });
+  const updatedGrievance = await grievanceModel.findOne({ _id: id });
+  updatedGrievance.status = "resolved";
+  await updatedGrievance.save();
+  await updatedGrievance.populate("userId");
+  sendMail(
+    updatedGrievance.userId.email,
+    "Issue Resolved",
+    `Issue ${updatedGrievance.description} has been resolved`
+  );
+
   ok200(res);
 }
 
