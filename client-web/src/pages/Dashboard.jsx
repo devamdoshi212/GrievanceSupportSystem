@@ -96,8 +96,8 @@ function Dashboard() {
           iconClass={PrimeIcons.BUILDING}
           count={10}
               />
-              <ChartComponent/>
       </div>
+              <ChartComponent/>
       
           
           {/* <div className="flex overflow-hidden flex-wrap justify-evenly">
