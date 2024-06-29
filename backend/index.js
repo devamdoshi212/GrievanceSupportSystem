@@ -5,7 +5,7 @@ const cors = require("cors");
 const { dbConnection } = require("./utils/database-utils");
 const { interceptor, asyncRouteHandler } = require("./utils/router-utils");
 const morgan = require("morgan");
-const userRoutes = require("./routes/user-routes");
+const employeeRoutes = require("./routes/employee-routes");
 const adminRoutes = require("./routes/admin-routes");
 const { errorHandler } = require("./controllers/error-controller");
 const { register, login } = require("./controllers/common-controller");
@@ -25,7 +25,7 @@ app.use(
   asyncRouteHandler(register)
 );
 app.use("/login", asyncRouteHandler(login));
-app.use("/user", userRoutes);
+app.use("/employee", employeeRoutes);
 app.use("/admin", adminRoutes);
 
 app.use(errorHandler);

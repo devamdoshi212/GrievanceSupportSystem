@@ -5,7 +5,7 @@ const grievanceSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.SchemaTypes.ObjectId, ref: "users" },
     grievanceId: { type: mongoose.SchemaTypes.ObjectId, ref: "grievanceTypes" },
-    title: String,
+    description: String,
     status: {
       type: String,
       enum: ["pending", "resolved", "rejected"],
