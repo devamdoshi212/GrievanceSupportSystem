@@ -83,8 +83,11 @@ async function hrAllGrievance(req, res, next) {
   if (!grievanceId) {
     throw new CustomError("Invalid Request", 400);
   }
+  let hr = await userModel
+    .find({ role: "HR", grievanceTypeId: grievanceId })
+    .populate("grievanceTypeId");
   let grievance = await grievanceModel.find({ grievanceId, is_active: 1 });
-  ok200(res, { grievance });
+  ok200(res, { grievance, hr });
 }
 module.exports = {
   addEmployeeAndHr,
