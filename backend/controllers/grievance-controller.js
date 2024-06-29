@@ -60,7 +60,14 @@ async function addGrievance(req, res, next) {
   });
 
   await newGrievance.save();
-  ok200(res, {});
+
+  const updatedUser = await userModel.findByIdAndUpdate(
+    res.locals.userData._id,
+    {
+      $push: { grievanceIds: newGrievance._id },
+    }
+  );
+  ok200(res);
 }
 async function getGrievance(req, res, next) {
   let grievances = await grievanceModel.find({
@@ -68,9 +75,22 @@ async function getGrievance(req, res, next) {
   });
   ok200(res, grievances);
 }
+
+async function getGrievanceById(req, res, next) {
+  const { grievanceId } = req.body;
+  if (!grievanceId) {
+    throw new CustomError("Invalid Request", 400);
+  }
+
+  let grievance = await grievanceModel
+    .find({ _id: grievanceId, is_active: 1 })
+    .populate("userId");
+  ok200(res, { grievance });
+}
 module.exports = {
   addGrievanceType,
   getAllGrievanceType,
   addGrievance,
   getGrievance,
+  getGrievanceById,
 };
