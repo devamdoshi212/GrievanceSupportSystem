@@ -62,8 +62,15 @@ async function addGrievance(req, res, next) {
   await newGrievance.save();
   ok200(res, {});
 }
+async function getGrievance(req, res, next) {
+  let grievances = await grievanceModel.find({
+    userId: res.locals.userData._id,
+  });
+  ok200(res, grievances);
+}
 module.exports = {
   addGrievanceType,
   getAllGrievanceType,
   addGrievance,
+  getGrievance,
 };
