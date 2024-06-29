@@ -6,6 +6,7 @@ const { verify } = require("../controllers/common-controller");
 const {
   addEmployeeAndHr,
   getHrWithGrievance,
+  dashboard,
 } = require("../controllers/admin-controller");
 const {
   addGrievanceType,
@@ -20,11 +21,6 @@ router.post("/addGrievanceType", asyncRouteHandler(addGrievanceType));
 
 router.get("/getAllGrievanceType", asyncRouteHandler(getAllGrievanceType));
 router.get("/getHrWithGrievance", asyncRouteHandler(getHrWithGrievance));
-router.get(
-  "/dashboard",
-  asyncRouteHandler((req, res) => {
-    ok200(res);
-  })
-);
+router.get("/dashboard", asyncRouteHandler(dashboard));
 
 module.exports = router;

@@ -6,6 +6,7 @@ const { verify } = require("../controllers/common-controller");
 const {
   addGrievance,
   getAllGrievanceType,
+  getGrievance,
 } = require("../controllers/grievance-controller");
 const { multerConfig } = require("../utils/upload-files-utils");
 
@@ -19,6 +20,7 @@ router.post(
   multerConfig.array("attachments", 5),
   asyncRouteHandler(addGrievance)
 );
+router.get("/getGrievance", asyncRouteHandler(getGrievance));
 router.get(
   "/dashboard",
   asyncRouteHandler((req, res) => {

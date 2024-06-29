@@ -37,9 +37,11 @@ async function getHrWithGrievance(req, res, next) {
     .lean();
   for (let i = 0; i < hr.length; i++) {
     let grievanceTypeId = hr[i].grievanceTypeId._id;
-    let grievances = await grievanceModel.find({
-      grievanceId: grievanceTypeId,
-    });
+    let grievances = await grievanceModel
+      .find({
+        grievanceId: grievanceTypeId,
+      })
+      .populate("userId");
     let pendingCount = await grievanceModel.countDocuments({
       grievanceId: grievanceTypeId,
       status: "pending",
@@ -60,7 +62,24 @@ async function getHrWithGrievance(req, res, next) {
   }
   ok200(res, { hr });
 }
+async function dashboard(req, res, next) {
+  let pendingCount = await grievanceModel.countDocuments({
+    status: "pending",
+  });
+  let rejectedCount = await grievanceModel.countDocuments({
+    status: "rejected",
+  });
+  let resolvedCount = await grievanceModel.countDocuments({
+    status: "resolved",
+  });
+  ok200(res, {
+    pendingCount,
+    rejectedCount,
+    resolvedCount,
+  });
+}
 module.exports = {
   addEmployeeAndHr,
   getHrWithGrievance,
+  dashboard,
 };
