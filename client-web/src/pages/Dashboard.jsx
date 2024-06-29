@@ -29,7 +29,7 @@ function Dashboard() {
             ),
           },
           {
-            label: "Penging Grievance",
+            label: "Pending Grievance",
             count: result.data.pendingCount,
             iconClass: (
               <i className={PrimeIcons.BUILDING} style={{ fontSize: "25px" }} />
@@ -81,22 +81,7 @@ function Dashboard() {
   return (
     <>
       <div className="text-4xl px-10 font-bold py-1">Dashboard</div>
-
       <div className="flex overflow-hidden flex-wrap justify-evenly">
-        <CountCard
-          key={1}
-          label={"Grievance"}
-          iconClass={PrimeIcons.BUILDING}
-          count={10}
-        />
-        <CountCard
-          key={1}
-          label={"Grievance"}
-          iconClass={PrimeIcons.BUILDING}
-          count={10}
-        />
-      </div>
-      {/* <div className="flex overflow-hidden flex-wrap justify-evenly">
         {count &&
           count[localStorage.getItem("role")].map((ele, ind) => {
             return (
@@ -108,7 +93,7 @@ function Dashboard() {
               />
             );
           })}
-      </div> */}
+      </div>
     </>
   );
 }
