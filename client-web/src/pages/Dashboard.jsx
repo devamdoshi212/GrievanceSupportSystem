@@ -95,7 +95,8 @@ function Dashboard() {
           label={"Grievance"}
           iconClass={PrimeIcons.BUILDING}
           count={10}
-        />
+              />
+              <ChartComponent/>
       </div>
       
           
