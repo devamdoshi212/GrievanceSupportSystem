@@ -4,6 +4,7 @@ const userModel = require("../models/user-models");
 const { ok200 } = require("../utils/response-utils");
 const { sendMailToPersons } = require("../utils/mail-utils");
 const { mongoose } = require("mongoose");
+const grievanceModel = require("../models/grievance-models");
 function generatePassword(length) {
   return crypto.randomBytes(length).toString("base64").slice(0, length);
 }
@@ -29,6 +30,37 @@ async function addEmployeeAndHr(req, res, next) {
   await newUser.save();
   ok200(res);
 }
+async function getHrWithGrievance(req, res, next) {
+  let hr = await userModel
+    .find({ role: "HR", is_active: 1 })
+    .populate("grievanceTypeId")
+    .lean();
+  for (let i = 0; i < hr.length; i++) {
+    let grievanceTypeId = hr[i].grievanceTypeId._id;
+    let grievances = await grievanceModel.find({
+      grievanceId: grievanceTypeId,
+    });
+    let pendingCount = await grievanceModel.countDocuments({
+      grievanceId: grievanceTypeId,
+      status: "pending",
+    });
+    let rejectedCount = await grievanceModel.countDocuments({
+      grievanceId: grievanceTypeId,
+      status: "rejected",
+    });
+    let resolvedCount = await grievanceModel.countDocuments({
+      grievanceId: grievanceTypeId,
+      status: "resolved",
+    });
+
+    hr[i].grievances = grievances;
+    hr[i].pending = pendingCount;
+    hr[i].rejected = rejectedCount;
+    hr[i].resolved = resolvedCount;
+  }
+  ok200(res, { hr });
+}
 module.exports = {
   addEmployeeAndHr,
+  getHrWithGrievance,
 };

@@ -3,7 +3,10 @@ const { asyncRouteHandler } = require("../utils/router-utils");
 const { ok200 } = require("../utils/response-utils");
 const { authMiddleware } = require("../middlewares/auth-middleware");
 const { verify } = require("../controllers/common-controller");
-const { addEmployeeAndHr } = require("../controllers/admin-controller");
+const {
+  addEmployeeAndHr,
+  getHrWithGrievance,
+} = require("../controllers/admin-controller");
 const {
   addGrievanceType,
   getAllGrievanceType,
@@ -16,6 +19,7 @@ router.post("/addEmployeeAndHr", asyncRouteHandler(addEmployeeAndHr));
 router.post("/addGrievanceType", asyncRouteHandler(addGrievanceType));
 
 router.get("/getAllGrievanceType", asyncRouteHandler(getAllGrievanceType));
+router.get("/getHrWithGrievance", asyncRouteHandler(getHrWithGrievance));
 router.get(
   "/dashboard",
   asyncRouteHandler((req, res) => {

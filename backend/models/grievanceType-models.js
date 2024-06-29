@@ -8,7 +8,7 @@ const grievanceTypeSchema = new mongoose.Schema({
   is_active: { type: Number, default: 1 },
 });
 const grievanceTypeModel = mongoose.model(
-  "grievanceTypes",
+  "grievancetypes",
   grievanceTypeSchema
 );
 module.exports = grievanceTypeModel;
