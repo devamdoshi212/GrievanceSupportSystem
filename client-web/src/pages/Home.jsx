@@ -19,16 +19,36 @@ function Home() {
           name: "Dashboard",
         },
         {
+          to: "/admin/hr",
+          iconClass: PrimeIcons.USER,
+          name: "Add Person",
+        },
+        {
+          to: "/admin/grievance",
+          iconClass: PrimeIcons.USER,
+          name: "Add Grievance",
+        },
+        {
+          to: "/admin/allgrievance",
+          iconClass: PrimeIcons.USER,
+          name: "View Grievance",
+        },
+        {
           to: "/",
           iconClass: PrimeIcons.SIGN_OUT,
           name: "Logout",
         },
       ],
-      "INSTITUTE-HEAD": [
+      "EMPLOYEE": [
         {
-          to: "/institute-head",
+          to: "/",
           iconClass: PrimeIcons.HOME,
           name: "Dashboard",
+        },
+        {
+          to: "/employee/grievance",
+          iconClass: PrimeIcons.HOME,
+          name: "Raise Grievances",
         },
         {
           to: "/",
@@ -93,7 +113,6 @@ function Home() {
     <>
       <Toast ref={toast} />
       <Header />
-
       <div className="w-full h-full overflow-x-hidden">
         <div className="flex flex-row h-[90vh] w-full overflow-x-hidden">
           <div

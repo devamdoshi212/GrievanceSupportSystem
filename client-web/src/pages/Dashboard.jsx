@@ -22,8 +22,22 @@ function Dashboard() {
       let data = {
         ADMIN: [
           {
-            label: "Institutes",
-            count: result.data.instituteCount,
+            label: "Resolved Grievance",
+            count: result.data.resolvedCount,
+            iconClass: (
+              <i className={PrimeIcons.BUILDING} style={{ fontSize: "25px" }} />
+            ),
+          },
+          {
+            label: "Penging Grievance",
+            count: result.data.pendingCount,
+            iconClass: (
+              <i className={PrimeIcons.BUILDING} style={{ fontSize: "25px" }} />
+            ),
+          },
+          {
+            label: "Rejected Grievance",
+            count: result.data.rejectedCount,
             iconClass: (
               <i className={PrimeIcons.BUILDING} style={{ fontSize: "25px" }} />
             ),
@@ -38,20 +52,6 @@ function Dashboard() {
                 className={PrimeIcons.BUILDING}
                 style={{ fontSize: "25px" }}
               ></i>
-            ),
-          },
-          {
-            label: "Teachers",
-            count: result.data.teacherCount,
-            iconClass: (
-              <i className={PrimeIcons.USERS} style={{ fontSize: "25px" }}></i>
-            ),
-          },
-          {
-            label: "Subjects",
-            count: result.data.subjectCount,
-            iconClass: (
-              <i className={PrimeIcons.BOOK} style={{ fontSize: "25px" }}></i>
             ),
           },
         ],
@@ -80,10 +80,23 @@ function Dashboard() {
 
   return (
     <>
-      {loading && <Loading />}
       <div className="text-4xl px-10 font-bold py-1">Dashboard</div>
 
       <div className="flex overflow-hidden flex-wrap justify-evenly">
+        <CountCard
+          key={1}
+          label={"Grievance"}
+          iconClass={PrimeIcons.BUILDING}
+          count={10}
+        />
+        <CountCard
+          key={1}
+          label={"Grievance"}
+          iconClass={PrimeIcons.BUILDING}
+          count={10}
+        />
+      </div>
+      {/* <div className="flex overflow-hidden flex-wrap justify-evenly">
         {count &&
           count[localStorage.getItem("role")].map((ele, ind) => {
             return (
@@ -95,8 +108,7 @@ function Dashboard() {
               />
             );
           })}
-      </div>
-      {count && <div>{count.instituteCount}</div>}
+      </div> */}
     </>
   );
 }

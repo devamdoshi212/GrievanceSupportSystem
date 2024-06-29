@@ -2,9 +2,6 @@ import { useState } from "react";
 import { fetchPost } from "../apis/fetch";
 import { useNavigate } from "react-router-dom";
 import { Dropdown } from "primereact/dropdown";
-import "primereact/resources/themes/saga-blue/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
 
 const roles = [
   { label: "EMPLOYEE", value: "EMPLOYEE" },
@@ -29,6 +26,7 @@ function Login() {
         "",
         JSON.stringify({ role, password, email })
       );
+      console.log(result);
       setLoading(false);
       if (result.success) {
         setError("");

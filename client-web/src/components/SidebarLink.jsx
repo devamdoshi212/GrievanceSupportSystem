@@ -49,8 +49,7 @@ function SideBarLink({
               "select-none w-full h-16 flex flex-row items-center ps-5 font-semibold text-xl cursor-pointer transition-all",
               {
                 "bg-blue-500 text-white": props.isActive, 
-                "bg-white text-black": props.isActive,
-                "text-black hover:bg-white hover:text-black": !props.isActive,
+                "text-black hover:bg-blue-200 hover:text-white": !props.isActive,
               }
             )
           }
