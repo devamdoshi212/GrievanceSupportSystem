@@ -6,6 +6,7 @@ import Loading from "../components/Loading";
 
 import { PrimeIcons } from "primereact/api";
 import CountCard from "../components/Dashboard/CountCard";
+import ChartComponent from "../components/Dashboard/Charts";
 
 function Dashboard() {
   const role = localStorage.getItem("role").toLowerCase();
@@ -95,6 +96,7 @@ function Dashboard() {
           iconClass={PrimeIcons.BUILDING}
           count={10}
         />
+        <ChartComponent/>
       </div>
       {/* <div className="flex overflow-hidden flex-wrap justify-evenly">
         {count &&
