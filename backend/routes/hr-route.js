@@ -11,6 +11,7 @@ const { multerConfig } = require("../utils/upload-files-utils");
 const {
   dashboard,
   grievanceRejected,
+  hrAllGrievance,
 } = require("../controllers/hr-controller");
 
 const router = express.Router();
@@ -21,4 +22,6 @@ router.get("/getGrievance", asyncRouteHandler(getGrievance));
 router.post("/getGrievanceById", asyncRouteHandler(getGrievanceById));
 router.get("/dashboard", asyncRouteHandler(dashboard));
 router.post("/grievanceRejected", asyncRouteHandler(grievanceRejected));
+router.get("/hrAllGrievance", asyncRouteHandler(hrAllGrievance));
+
 module.exports = router;
