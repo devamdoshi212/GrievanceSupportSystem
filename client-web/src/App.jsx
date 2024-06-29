@@ -5,7 +5,6 @@ import Home from "./pages/Home";
 import Login from "./components/Login";
 import { loginLoader, verifyLoader } from "./loaders/verifyLoader";
 import Dashboard from "./pages/Dashboard";
-import Register from "./components/Register";
 import AddPerson from "./pages/Admin/AddPerson";
 import AddGrievance from "./pages/Admin/AddGrievance";
 import ViewGrievance from "./pages/Admin/ViewGrievance";

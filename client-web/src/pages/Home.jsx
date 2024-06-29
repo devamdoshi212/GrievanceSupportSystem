@@ -58,7 +58,7 @@ function Home() {
       ],
       EMPLOYEE: [
         {
-          to: "/",
+          to: "/employee",
           iconClass: PrimeIcons.HOME,
           name: "Dashboard",
         },
