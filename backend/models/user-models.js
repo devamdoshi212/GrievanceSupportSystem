@@ -12,6 +12,10 @@ const userSchema = new mongoose.Schema({
     public_url: { type: String, trim: true },
   },
   password: String,
+  grievanceTypeId: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "grievancetypes",
+  },
   grievanceIds: [{ type: mongoose.SchemaTypes.ObjectId, ref: "grievances" }],
   is_active: { type: Number, default: 1 },
 });

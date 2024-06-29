@@ -14,13 +14,13 @@ async function sendMail(receiver, subject, message) {
     port: 465,
     secure: true,
     auth: {
-      user: "quizportalofficial@gmail.com",
-      pass: "buydwohhgiawtifr",
+      user: "gamingzone0631@gmail.com",
+      pass: "alihpjvownpuqsof",
     },
   });
 
   let mailOptions = {
-    from: "Grievance Support System <quizportalofficial@gmail.com>",
+    from: "Grievance Support System <gamingzone0631@gmail.com>",
     to: receiver,
     subject: subject,
     html: fullMessage,
