@@ -4,8 +4,6 @@ const { ok200 } = require("../utils/response-utils");
 const { authMiddleware } = require("../middlewares/auth-middleware");
 const { verify } = require("../controllers/common-controller");
 const {
-  addGrievance,
-  getAllGrievanceType,
   getGrievance,
   getGrievanceById,
 } = require("../controllers/grievance-controller");

@@ -7,6 +7,7 @@ const { interceptor, asyncRouteHandler } = require("./utils/router-utils");
 const morgan = require("morgan");
 const employeeRoutes = require("./routes/employee-routes");
 const adminRoutes = require("./routes/admin-routes");
+const hrRoutes = require("./routes/hr-route");
 const { errorHandler } = require("./controllers/error-controller");
 const { register, login } = require("./controllers/common-controller");
 const { multerConfig } = require("./utils/upload-files-utils");
@@ -27,6 +28,7 @@ app.use(
 app.use("/login", asyncRouteHandler(login));
 app.use("/employee", employeeRoutes);
 app.use("/admin", adminRoutes);
+app.use("/hr", hrRoutes);
 
 app.use(errorHandler);
 app.all("*", (req, res, next) => {
