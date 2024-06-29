@@ -78,8 +78,17 @@ async function dashboard(req, res, next) {
     resolvedCount,
   });
 }
+async function hrAllGrievance(req, res, next) {
+  const { grievanceId } = req.body;
+  if (!grievanceId) {
+    throw new CustomError("Invalid Request", 400);
+  }
+  let grievance = await grievanceModel.find({ grievanceId, is_active: 1 });
+  ok200(res, { grievance });
+}
 module.exports = {
   addEmployeeAndHr,
   getHrWithGrievance,
   dashboard,
+  hrAllGrievance,
 };

@@ -7,6 +7,7 @@ const {
   addEmployeeAndHr,
   getHrWithGrievance,
   dashboard,
+  hrAllGrievance,
 } = require("../controllers/admin-controller");
 const {
   addGrievanceType,
@@ -22,5 +23,7 @@ router.post("/addGrievanceType", asyncRouteHandler(addGrievanceType));
 router.get("/getAllGrievanceType", asyncRouteHandler(getAllGrievanceType));
 router.get("/getHrWithGrievance", asyncRouteHandler(getHrWithGrievance));
 router.get("/dashboard", asyncRouteHandler(dashboard));
+
+router.post("/hrAllGrievance", asyncRouteHandler(hrAllGrievance));
 
 module.exports = router;
