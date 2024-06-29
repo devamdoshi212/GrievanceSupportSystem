@@ -12,13 +12,12 @@ const ChartComponent = ({ data }) => {
     xdata = data.HR.map((a) => {
       return a.count;
     });
-  } else if(role === "EMPLOYEE") {
+  } else if (role === "EMPLOYEE") {
     xdata = data.EMPLOYEE.map((a) => {
       return a.count;
     });
   }
-  useEffect(()=>{
-  },[xdata])
+  useEffect(() => {}, [xdata]);
   const pieData = {
     labels: ["Resolved", "Pending", "Rejected"],
     datasets: [
@@ -62,7 +61,7 @@ const ChartComponent = ({ data }) => {
           <h5 className="text-lg font-semibold text-gray-800 mb-4">
             Grievance Complaint Status
           </h5>
-          <Chart type="pie" data={pieData} />
+          <Chart type="pie" data={pieData} style={{ height: "300px" }} />
         </div>
         {/* <div className="ml-4 w-3/5 flex-grow bg-white rounded-lg shadow-md p-4">
           <h5 className="text-lg font-semibold text-gray-800 mb-4">
