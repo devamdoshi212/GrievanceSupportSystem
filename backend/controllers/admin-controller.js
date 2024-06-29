@@ -3,11 +3,12 @@ const { CustomError } = require("../utils/router-utils");
 const userModel = require("../models/user-models");
 const { ok200 } = require("../utils/response-utils");
 const { sendMailToPersons } = require("../utils/mail-utils");
+const { mongoose } = require("mongoose");
 function generatePassword(length) {
   return crypto.randomBytes(length).toString("base64").slice(0, length);
 }
 async function addEmployeeAndHr(req, res, next) {
-  const { role, fullname, email } = req.body;
+  const { role, fullname, email, grievanceTypeId = null } = req.body;
   if (!role || !fullname || !email) {
     throw new CustomError("Invalid Request", 400);
   }
@@ -22,6 +23,7 @@ async function addEmployeeAndHr(req, res, next) {
     fullname,
     email,
     password,
+    grievanceTypeId: new mongoose.Types.ObjectId(grievanceTypeId),
   });
 
   await newUser.save();
