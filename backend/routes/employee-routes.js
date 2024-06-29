@@ -3,14 +3,17 @@ const { asyncRouteHandler } = require("../utils/router-utils");
 const { ok200 } = require("../utils/response-utils");
 const { authMiddleware } = require("../middlewares/auth-middleware");
 const { verify } = require("../controllers/common-controller");
-const { addGrievance } = require("../controllers/grievance-controller");
+const {
+  addGrievance,
+  getAllGrievanceType,
+} = require("../controllers/grievance-controller");
 const { multerConfig } = require("../utils/upload-files-utils");
-const { getHrWithGrievance } = require("../controllers/admin-controller");
 
 const router = express.Router();
 router.use(authMiddleware("EMPLOYEE"));
 router.get("/verify", asyncRouteHandler(verify));
-router.get("/getHrWithGrievance", asyncRouteHandler(getHrWithGrievance));
+
+router.get("/getAllGrievanceType", asyncRouteHandler(getAllGrievanceType));
 router.post(
   "/addGrievance",
   multerConfig.array("attachments", 5),
