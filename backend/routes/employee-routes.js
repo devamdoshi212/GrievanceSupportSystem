@@ -7,8 +7,10 @@ const {
   addGrievance,
   getAllGrievanceType,
   getGrievance,
+  getGrievanceById,
 } = require("../controllers/grievance-controller");
 const { multerConfig } = require("../utils/upload-files-utils");
+const { dashboard } = require("../controllers/employee-controller");
 
 const router = express.Router();
 router.use(authMiddleware("EMPLOYEE"));
@@ -21,11 +23,8 @@ router.post(
   asyncRouteHandler(addGrievance)
 );
 router.get("/getGrievance", asyncRouteHandler(getGrievance));
-router.get(
-  "/dashboard",
-  asyncRouteHandler((req, res) => {
-    ok200(res);
-  })
-);
+router.post("/getGrievanceById", asyncRouteHandler(getGrievanceById));
+
+router.get("/dashboard", asyncRouteHandler(dashboard));
 
 module.exports = router;
